@@ -7,7 +7,7 @@ package ludo;
 import java.util.Random; 
 /**
  *
- * @author Mohamed Amr
+ * @author marawan
  */
 public interface Dice
 {
