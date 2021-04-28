@@ -15,7 +15,7 @@ import org.newdawn.slick.state.*;
 
 /**
  *
- * @author Mohamed Amr
+ * @author marawan
  */
 class ludoboard extends BoardStrategy
 {  
