@@ -8,7 +8,6 @@ package ludo;
 import org.newdawn.slick.SlickException;
 
 /**
- *
  * @author Mohamed Amr
  */
 public class LudoPlayer 
