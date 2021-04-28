@@ -9,7 +9,7 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 /**
  *
- * @author Mohamed Amr
+ * @author marawan
  */
 public class Coordinates
 {
