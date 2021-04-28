@@ -1,6 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ludo;
 
-
+/**
+ *
+ * @author Mohamed Amr
+ */
 import java.util.Vector;
 import org.lwjgl.input.*;
 import org.newdawn.slick.*;
@@ -35,9 +43,9 @@ public class Play  extends BasicGameState
     int[] duration = {500,500};
     float diceposX = 0;
     float diceposY = 0;
-    float shiftx = diceposX +550;
-    float shifty = diceposY +500;
-    int output=5;
+    float shiftx = diceposX +970;
+    float shifty = diceposY +430;
+    int output;
     boolean quit=false;
     int step=2;
     String momo="";
@@ -329,7 +337,7 @@ public class Play  extends BasicGameState
       int targ_cell_indexi=-1;
       int piece_id=-1;
       int factor=35;
-    // output=5;
+     output=5;
      
      if(Mouse.isButtonDown(0))
          if(Mouse.getX() >= 185 && Mouse.getX() <= 275 && Mouse.getY() <= 100 && Mouse.getY() >= 33)
@@ -401,7 +409,7 @@ public class Play  extends BasicGameState
               if(xpos>=xmin1&&xpos<=xmax1 &&ypos>=ymin1 &&ypos<=ymax1&&Mouse.isButtonDown(0)) 
           {
                Mouse.setCursorPosition(1050, 800);
-            if(turnn==true)
+                   if(turnn==true)
           {
               
               dice1=Roll2;
@@ -605,3 +613,610 @@ public class Play  extends BasicGameState
                                     b.cell_pieces[src_cell_indexi].remove(k);  //remove from piece from the sourc cell
                                     b.cell_pieces[targ_cell_indexi].add(piece_id);//add piece to the target cell
                                     w[piece_id]=20;h[piece_id]=35;
+                                    w[enemy_id]=20;h[enemy_id]=35;
+                                    arr_x[piece_id]=b.YELLOWX[targ_index]-10;
+                                    arr_y[piece_id]=b.YELLOWY[targ_index]+10; 
+                                    arr_x[enemy_id]=b.YELLOWX[targ_index]+15;
+                                    arr_y[enemy_id]=b.YELLOWY[targ_index]+10; 
+                                    for(int ii=0;ii<4;ii++)
+                                    {
+                                        if(players[0].pieces[ii].id ==piece_id)
+                                        {
+                                           
+                                            players[0].pieces[ii].color_path_id = targ_index;
+                                        }
+                                    }
+                                }
+                                else //enemy
+                                {
+                                     turnn=true;
+                                     superNumber = -1;
+                                        // remove piece from the cell
+                                        b.cell_pieces[targ_cell_indexi].remove(0);
+                                        
+                                       /* for(int a=4;a<=7;a++)
+                                        {
+                                            if(b.cell_pieces[a].size()==0) 
+                                            {
+                                                out_index=a;
+                                            }
+                                        }
+                                        */
+                                        b.cell_pieces[enemy_id].add(enemy_id); // add to red out cell
+                                        w[piece_id]=30;h[piece_id]=50;
+                                        w[enemy_id]=30;h[piece_id]=50;
+                                        arr_x[enemy_id]=b.full_path_x.get(enemy_id); // draw in the out cell
+                                        arr_y[enemy_id]=b.full_path_y.get(enemy_id); 
+                                        for(int a=0;a<number_of_players;a++)
+                                        {
+                                            for(int c=0;c<4;c++)
+                                            {
+                                                if(players[a].pieces[c].id==enemy_id)
+                                                {
+                                                    players[a].pieces[c].color_path_id=-1;
+                                                }
+                                            }
+                                        }
+                                    
+                                   
+                                    b.cell_pieces[src_cell_indexi].remove(k);  //remove  piece from the sourc cell
+                                    b.cell_pieces[targ_cell_indexi].add(piece_id);//add piece to the target cell
+                                    arr_x[piece_id]=b.YELLOWX[targ_index];
+                                    arr_y[piece_id]=b.YELLOWY[targ_index]; 
+                               
+                                    for(int ii=0;ii<4;ii++)
+                                    {
+                                        if(players[0].pieces[ii].id ==piece_id)
+                                        {
+
+                                            players[0].pieces[ii].color_path_id = targ_index;
+                                        }
+                                    }
+                                    
+                                }
+                                
+                            }
+                             else if(b.cell_pieces[targ_cell_indexi].size()==3)
+                            {
+                                int friend =(int) b.cell_pieces[targ_cell_indexi].get(0);
+                                int friend1 =(int) b.cell_pieces[targ_cell_indexi].get(1);
+                                int friend2 =(int) b.cell_pieces[targ_cell_indexi].get(2);
+                                b.cell_pieces[src_cell_indexi].remove(k);  //remove from piece from the sourc cell
+                                b.cell_pieces[targ_cell_indexi].add(piece_id);//add piece to the target cell
+                                w[piece_id]=15;h[piece_id]=20;
+                                w[friend]=15;h[friend]=20;
+                                w[friend1]=15;h[friend1]=20;
+                                w[friend2]=15;h[friend2]=20;
+                                arr_x[friend]=b.YELLOWX[targ_index]+20;
+                                arr_y[friend]=b.YELLOWY[targ_index]+10;
+                                arr_x[friend1]=b.YELLOWX[targ_index]-15;
+                                arr_y[friend1]=b.YELLOWY[targ_index]+20;
+                                arr_x[piece_id]=b.YELLOWX[targ_index];
+                                arr_y[piece_id]=b.YELLOWY[targ_index]+8;
+                                arr_x[friend2]=b.YELLOWX[targ_index];
+                                arr_y[friend2]=b.YELLOWY[targ_index]-8;
+                                for(int ii=0;ii<4;ii++)
+                                    {
+                                        if(players[0].pieces[ii].id ==piece_id)
+                                        {
+                                            players[0].pieces[ii].color_path_id = targ_index;
+                                        }                                      
+                                    }
+                                 turnn=true;
+                                 superNumber = -1;
+                            }
+                            else if(b.cell_pieces[targ_cell_indexi].size()==1&&b.safe_zone[targ_cell_indexi])
+                            {
+                                int friend =(int) b.cell_pieces[targ_cell_indexi].get(0);
+                                 b.cell_pieces[src_cell_indexi].remove(k);  //remove from piece from the sourc cell
+                                    b.cell_pieces[targ_cell_indexi].add(piece_id);//add piece to the target cell
+                                   w[piece_id]=20;h[piece_id]=35;
+                                    w[friend]=20;h[friend]=35;
+                                    arr_x[piece_id]=b.YELLOWX[targ_index]-10;
+                                    arr_y[piece_id]=b.YELLOWY[targ_index]+10; 
+                                    arr_x[friend]=b.YELLOWX[targ_index]+15;
+                                    arr_y[friend]=b.YELLOWY[targ_index]+10; 
+                               
+                                    for(int ii=0;ii<4;ii++)
+                                    {
+                                        if(players[0].pieces[ii].id ==piece_id)
+                                        {
+                                            players[0].pieces[ii].color_path_id = targ_index;
+                                        }
+                                    }
+                                     turnn=true;
+                                     superNumber = -1;
+                            }
+                            else if(b.cell_pieces[targ_cell_indexi].size()==2)
+                            {
+                                int friend =(int) b.cell_pieces[targ_cell_indexi].get(0);
+                                int friend1 =(int) b.cell_pieces[targ_cell_indexi].get(1);
+                                b.cell_pieces[src_cell_indexi].remove(k);  //remove from piece from the sourc cell
+                                b.cell_pieces[targ_cell_indexi].add(piece_id);//add piece to the target cell
+                                w[piece_id]=20;h[piece_id]=25;
+                                w[friend]=20;h[friend]=25;
+                                w[friend1]=20;h[friend1]=25;
+                                arr_x[friend]=b.YELLOWX[targ_index]-10;
+                                arr_y[friend]=b.YELLOWY[targ_index]+10;
+                                arr_x[friend1]=b.YELLOWX[targ_index]+15;
+                                arr_y[friend1]=b.YELLOWY[targ_index]+10;
+                                arr_x[piece_id]=b.YELLOWX[targ_index];
+                                arr_y[piece_id]=b.YELLOWY[targ_index]+10;
+                                for(int ii=0;ii<4;ii++)
+                                    {
+                                        if(players[0].pieces[ii].id ==piece_id)
+                                        {
+                                            players[0].pieces[ii].color_path_id = targ_index;
+                                        }                                      
+                                    }
+                                 turnn=true;
+                                 superNumber = -1;
+                            }
+                           
+                            else 
+                            {
+                                //HENA YA LOLOOOOO
+                              b.cell_pieces[src_cell_indexi].remove(k);  //remove from piece from the sourc cell
+                               b.cell_pieces[targ_cell_indexi].add(piece_id);//add piece to the target cell
+                                 turnn=true;
+                                 superNumber = -1;
+                                w[piece_id]=30;h[piece_id]=50;
+                                arr_x[piece_id]=b.YELLOWX[targ_index];
+                                arr_y[piece_id]=b.YELLOWY[targ_index]; 
+                               
+                                for(int ii=0;ii<4;ii++)
+                                {
+                                    if(players[0].pieces[ii].id ==piece_id)
+                                    {
+                                       
+                                        players[0].pieces[ii].color_path_id = targ_index;
+                                    }
+                                }
+                                
+                            }
+                          }
+                            
+                            
+                          
+                          }
+                      }
+                  
+                  }
+                  else if(step!=6)
+                  {
+                      turnn=true;
+                      superNumber = -1;
+                  }
+               
+              }
+              else if(turn=='R'||turn=='r')
+              {
+                  if(src_cell_indexi<16 && src_cell_indexi!=-1 &&step==6)  // still out of the game
+                  {
+                      //get piece id
+                      int k=-1;
+                      for(k=0;k<b.cell_pieces[src_cell_indexi].size();k++)
+                      {
+                           piece_id = (int)b.cell_pieces[src_cell_indexi].get(k); //get piece id
+                      
+                          if(piece_id>=4 && piece_id<=7)    //found true
+                          {
+                             break; 
+                          }
+                      }
+                        if(piece_id>=4 && piece_id<=7)    //found true
+                          {
+                            
+                            int targ_x = b.RedX[0];   // get positions of the target cell;
+                            int targ_y = b.RedY[0];
+                            
+                            int minx = targ_x-factor,maxx=targ_x+factor;
+                            int miny = targ_y-factor,maxy=targ_y+factor;
+                            
+                            float posx=-1;
+                            float posy=-1;
+                            int z=-1;
+                            for( z=0;z<92;z++)
+                            {
+                                 posx = (float)b.full_path_x.get(z);
+                                 posy=(float) b.full_path_y.get(z);
+                                 
+                                // System.out.println("pos x  " + posx+ " " + "posY " +posy  );
+                                
+                                 if(posx>=minx &&posx<=maxx &&posy>=miny &&posy<=maxy )
+                                 {
+                                     targ_cell_indexi = z;
+                                     
+                                     break;
+                                 }
+                            }
+                           // System.out.println(z);
+                            if(true) //check the cell number
+                            {
+                               
+                                b.cell_pieces[src_cell_indexi].remove(k);  //remove from piece from the sourc cell
+                                b.cell_pieces[targ_cell_indexi].add(piece_id);//add piece to the target cell
+                                arr_x[piece_id]=b.RedX[0];
+                                arr_y[piece_id]=b.RedY[0];
+                                // set target cell 
+                                for(int ii=0;ii<4;ii++)
+                                {
+                                    if(players[1].pieces[ii].id ==piece_id)
+                                    {
+                                        players[1].pieces[ii].color_path_id = 0;
+                                    }
+                                }
+                                 turnn=true;
+                                 superNumber = -1;
+                            }
+                            else // not applicable -> safe zone
+                            {
+                                
+                            }
+                            
+                          }
+                        
+                  }
+                  else if(src_cell_indexi>=16&&src_cell_indexi!=-1)
+                  {
+                       //get piece id
+                      if(src_cell_indexi!=-1)
+                      {
+                      int k=-1;
+                      for(k=0;k<b.cell_pieces[src_cell_indexi].size();k++)
+                      {
+                           piece_id = (int)b.cell_pieces[src_cell_indexi].get(k); //get piece id
+                           System.out.println(piece_id);
+                      
+                          if(piece_id>=4 && piece_id<=7)    //found true
+                          {
+                              //System.out.println("piece id " + piece_id);
+                             break; 
+                          }
+                      }
+                      if(piece_id>=4 &&piece_id<=7)
+                      {
+                        int curr_index;
+                        int targ_index=-1;
+                        
+                          for(int ii=0;ii<4;ii++)  // get piece current location on the colored path
+                          {
+                               //System.out.println("Players[0].pieces id : " +players[0].pieces[ii].id );
+                              if(players[1].pieces[ii].id==piece_id)
+                              {
+                               
+                                  curr_index = players[1].pieces[ii].color_path_id;
+                                  targ_index=curr_index +step;
+                                //  System.out.println("curr_index on the full path" + curr_index );
+                                  
+                                  break;
+                              }
+                          }
+                          if(targ_index!=-1&&targ_index<=56)
+                          {
+                                if(targ_index==56)
+                              {
+                                  players[1].no_of_pieces_home++;
+                              }
+                              if(players[1].no_of_pieces_home==4)
+                              {
+                                for(int f=0;f<3;f++)
+                                 {
+                                     if(winner[f]=="")
+                                     {
+                                         winner[f]="Winner " + (f+1) + ": Red";
+                                         break;
+                                     }
+                                 }
+                              }
+                              
+                          int targ_x = b.RedX[targ_index];
+                          int targ_y = b.RedY[targ_index];
+                          int minx = targ_x-factor,maxx=targ_x+factor;
+                          int miny = targ_y-factor,maxy=targ_y+factor;
+                          
+                            float posx=-1; // pos x in the full path
+                            float posy=-1; //pos y in the full path
+                            int z=-1;
+                            for( z=0;z<92;z++)
+                            {
+                                 posx = (float)b.full_path_x.get(z);
+                                 posy=(float) b.full_path_y.get(z);
+                                
+                                 if(posx>=minx &&posx<=maxx &&posy>=miny &&posy<=maxy )
+                                 {
+                                     targ_cell_indexi = z;
+                                     
+                                     break;
+                                 }
+                            }
+                            if(b.cell_pieces[targ_cell_indexi].size()==1&&!b.safe_zone[targ_cell_indexi]) // attack condition
+                            {
+                                int enemy_id =(int) b.cell_pieces[targ_cell_indexi].get(0);
+                                if(enemy_id>=4 && enemy_id<=7) // not enemy
+                                {
+                                    b.cell_pieces[src_cell_indexi].remove(k);  //remove from piece from the sourc cell
+                                    b.cell_pieces[targ_cell_indexi].add(piece_id);//add piece to the target cell
+                                    w[piece_id]=20;h[piece_id]=35;
+                                    w[enemy_id]=20;h[enemy_id]=35;
+                                    arr_x[piece_id]=b.RedX[targ_index]-10;
+                                    arr_y[piece_id]=b.RedY[targ_index]+10; 
+                                    arr_x[enemy_id]=b.RedX[targ_index]+15;
+                                    arr_y[enemy_id]=b.RedY[targ_index]+10; 
+                               
+                                    for(int ii=0;ii<4;ii++)
+                                    {
+                                        if(players[1].pieces[ii].id ==piece_id)
+                                        {
+
+                                            players[1].pieces[ii].color_path_id = targ_index;
+                                        }
+                                    }
+                                     turnn=true;
+                                     superNumber = -1;
+                                }
+                                else //enemy
+                                {
+                                     turnn=true;
+                                     superNumber = -1;
+                                        // remove piece from the cell
+                                        b.cell_pieces[targ_cell_indexi].remove(0);
+                                        
+                                       /* for(int a=4;a<=7;a++)
+                                        {
+                                            if(b.cell_pieces[a].size()==0) 
+                                            {
+                                                out_index=a;
+                                            }
+                                        }
+                                        */
+                                        b.cell_pieces[enemy_id].add(enemy_id); // add to red out cell
+                                        w[piece_id]=30;h[piece_id]=50;
+                                        w[enemy_id]=30;h[enemy_id]=50;
+                                        arr_x[enemy_id]=b.full_path_x.get(enemy_id); // draw in the out cell
+                                        arr_y[enemy_id]=b.full_path_y.get(enemy_id); 
+                                        for(int a=0;a<number_of_players;a++)
+                                        {
+                                            for(int c=0;c<4;c++)
+                                            {
+                                                if(players[a].pieces[c].id==enemy_id)
+                                                {
+                                                    players[a].pieces[c].color_path_id=-1;
+                                                }
+                                            }
+                                        }
+                                    
+                                   
+                                    b.cell_pieces[src_cell_indexi].remove(k);  //remove  piece from the sourc cell
+                                    b.cell_pieces[targ_cell_indexi].add(piece_id);//add piece to the target cell
+                                    arr_x[piece_id]=b.RedX[targ_index];
+                                    arr_y[piece_id]=b.RedY[targ_index]; 
+                               
+                                    for(int ii=0;ii<4;ii++)
+                                    {
+                                        if(players[1].pieces[ii].id ==piece_id)
+                                        {
+
+                                            players[1].pieces[ii].color_path_id = targ_index;
+                                        }
+                                    }
+                                    
+                                }
+                                
+                            }
+                             else if(b.cell_pieces[targ_cell_indexi].size()==3)
+                            {
+                                int friend =(int) b.cell_pieces[targ_cell_indexi].get(0);
+                                int friend1 =(int) b.cell_pieces[targ_cell_indexi].get(1);
+                                int friend2 =(int) b.cell_pieces[targ_cell_indexi].get(2);
+                                 b.cell_pieces[src_cell_indexi].remove(k);  //remove from piece from the sourc cell
+                                b.cell_pieces[targ_cell_indexi].add(piece_id);//add piece to the target cell
+                                w[piece_id]=20;h[piece_id]=25;
+                                w[friend]=20;h[friend]=25;
+                                w[friend1]=20;h[friend1]=25;
+                                w[friend2]=20;h[friend2]=25;
+                                arr_x[friend]=b.RedX[targ_index]+20;
+                                arr_y[friend]=b.RedY[targ_index]+10;
+                                arr_x[friend1]=b.RedX[targ_index]-15;
+                                arr_y[friend1]=b.RedY[targ_index]+30;
+                                arr_x[piece_id]=b.RedX[targ_index]-15;
+                                arr_y[piece_id]=b.RedY[targ_index]+8;
+                                arr_x[friend2]=b.RedX[targ_index]+20;
+                                arr_y[friend2]=b.RedY[targ_index]+8;
+                                for(int ii=0;ii<4;ii++)
+                                    {
+                                        if(players[1].pieces[ii].id ==piece_id)
+                                        {
+                                            players[1].pieces[ii].color_path_id = targ_index;
+                                        }                                      
+                                    }
+                                 turnn=true;
+                                 superNumber = -1;
+                            }
+                              else if(b.cell_pieces[targ_cell_indexi].size()==1&&b.safe_zone[targ_cell_indexi])
+                            {
+                                int friend =(int) b.cell_pieces[targ_cell_indexi].get(0);
+                                 b.cell_pieces[src_cell_indexi].remove(k);  //remove from piece from the sourc cell
+                                    b.cell_pieces[targ_cell_indexi].add(piece_id);//add piece to the target cell
+                                   w[piece_id]=20;h[piece_id]=35;
+                                    w[friend]=20;h[friend]=35;
+                                    arr_x[piece_id]=b.RedX[targ_index]-10;
+                                    arr_y[piece_id]=b.RedY[targ_index]+10; 
+                                    arr_x[friend]=b.RedX[targ_index]+15;
+                                    arr_y[friend]=b.RedY[targ_index]+10; 
+                               
+                                    for(int ii=0;ii<4;ii++)
+                                    {
+                                        if(players[1].pieces[ii].id ==piece_id)
+                                        {
+                                            players[1].pieces[ii].color_path_id = targ_index;
+                                        }
+                                    }
+                                     turnn=true;
+                                     superNumber = -1;
+                            }
+                            else if(b.cell_pieces[targ_cell_indexi].size()==2)
+                            {
+                                int friend =(int) b.cell_pieces[targ_cell_indexi].get(0);
+                                int friend1 =(int) b.cell_pieces[targ_cell_indexi].get(1);
+                                 b.cell_pieces[src_cell_indexi].remove(k);  //remove from piece from the sourc cell
+                                b.cell_pieces[targ_cell_indexi].add(piece_id);//add piece to the target cell
+                                w[piece_id]=20;h[piece_id]=25;
+                                w[friend]=20;h[friend]=25;
+                                w[friend1]=20;h[friend1]=25;
+                                arr_x[friend]=b.RedX[targ_index]+20;
+                                arr_y[friend]=b.RedY[targ_index]+10;
+                                arr_x[friend1]=b.RedX[targ_index]-15;
+                                arr_y[friend1]=b.RedY[targ_index]+30;
+                                arr_x[piece_id]=b.RedX[targ_index]-15;
+                                arr_y[piece_id]=b.RedY[targ_index]+8;
+                                for(int ii=0;ii<4;ii++)
+                                    {
+                                        if(players[1].pieces[ii].id ==piece_id)
+                                        {
+                                            players[1].pieces[ii].color_path_id = targ_index;
+                                        }                                      
+                                    }
+                                 turnn=true;
+                                 superNumber = -1;
+                            }
+                            else
+                            {
+                              b.cell_pieces[src_cell_indexi].remove(k);  //remove from piece from the sourc cell
+                               b.cell_pieces[targ_cell_indexi].add(piece_id);//add piece to the target cell
+                                
+                                w[piece_id]=30;h[piece_id]=50;
+                                arr_x[piece_id]=b.RedX[targ_index];
+                                arr_y[piece_id]=b.RedY[targ_index]; 
+                               
+                                for(int ii=0;ii<4;ii++)
+                                {
+                                    if(players[1].pieces[ii].id ==piece_id)
+                                    {
+                                       
+                                        players[1].pieces[ii].color_path_id = targ_index;
+                                    }
+                                }
+                                 turnn=true;
+                                 superNumber = -1;
+                            }
+                          }
+                            
+                            
+                          
+                          }
+                      }
+                  }
+                  else if(step!=6)
+                  {
+                      turnn=true;
+                      superNumber = -1;
+                  }
+               
+              }
+              else if(turn=='G'||turn=='g')
+              {
+                  if(src_cell_indexi<16 && src_cell_indexi!=-1&&step==6)  // still out of the game
+                  {
+                      
+                      //get piece id
+                      int k=-1;
+                      for(k=0;k<b.cell_pieces[src_cell_indexi].size();k++)
+                      {
+                           piece_id = (int)b.cell_pieces[src_cell_indexi].get(k); //get piece id
+                      
+                          if(piece_id>=8 && piece_id<=11)    //found true
+                          {
+                             break; 
+                          }
+                      }
+                        if(piece_id>=8 && piece_id<=11)    //found true
+                          {
+                            
+                            int targ_x = b.GREENX[0];   // get positions of the target cell;
+                            int targ_y = b.GREENY[0];
+                            
+                            int minx = targ_x-factor,maxx=targ_x+factor;
+                            int miny = targ_y-factor,maxy=targ_y+factor;
+                            
+                            float posx=-1;
+                            float posy=-1;
+                            int z=-1;
+                            for( z=0;z<92;z++)
+                            {
+                                 posx = (float)b.full_path_x.get(z);
+                                 posy=(float) b.full_path_y.get(z);
+                                 
+                                // System.out.println("pos x  " + posx+ " " + "posY " +posy  );
+                                
+                                 if(posx>=minx &&posx<=maxx &&posy>=miny &&posy<=maxy )
+                                 {
+                                     targ_cell_indexi = z;
+                                     
+                                     break;
+                                 }
+                            }
+                           // System.out.println(z);
+                            if(true) //check the cell number
+                            {
+                               
+                                b.cell_pieces[src_cell_indexi].remove(k);  //remove from piece from the sourc cell
+                                b.cell_pieces[targ_cell_indexi].add(piece_id);//add piece to the target cell
+                                arr_x[piece_id]=b.GREENX[0];
+                                arr_y[piece_id]=b.GREENY[0];
+                                // set target cell 
+                                for(int ii=0;ii<4;ii++)
+                                {
+                                    if(players[2].pieces[ii].id ==piece_id)
+                                    {
+                                        players[2].pieces[ii].color_path_id = 0;
+                                    }
+                                }
+                                 turnn=true;
+                                 superNumber = -1;
+                            }
+                            else // not applicable -> safe zone
+                            {
+                                
+                            }
+                            
+                          }
+                      
+                  }
+                  else if(src_cell_indexi>=16&&src_cell_indexi!=-1)
+                  {
+                       //get piece id
+                      if(src_cell_indexi!=-1)
+                      {
+                      int k=-1;
+                      for(k=0;k<b.cell_pieces[src_cell_indexi].size();k++)
+                      {
+                           piece_id = (int)b.cell_pieces[src_cell_indexi].get(k); //get piece id
+                           System.out.println(piece_id);
+                      
+                          if(piece_id>=8 && piece_id<=11)    //found true
+                          {
+                              //System.out.println("piece id " + piece_id);
+                             break; 
+                          }
+                      }
+                      if(piece_id>=8 &&piece_id<=11)
+                      {
+                        int curr_index;
+                        int targ_index=-1;
+                        
+                          for(int ii=0;ii<4;ii++)  // get piece current location on the colored path
+                          {
+                               //System.out.println("Players[0].pieces id : " +players[0].pieces[ii].id );
+                              if(players[2].pieces[ii].id==piece_id)
+                              {
+                               
+                                  curr_index = players[2].pieces[ii].color_path_id;
+                                  targ_index=curr_index +step;
+                                //  System.out.println("curr_index on the full path" + curr_index );
+                                  
+                                  break;
+                              }
+                          }
+                          
+                   
